@@ -9,7 +9,7 @@ class Template extends React.Component {
 
     return (
       <Container>
-        <Navigation />
+        {/* <Navigation /> */}
         {children}
       </Container>
     )

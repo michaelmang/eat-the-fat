@@ -36,7 +36,7 @@ if (!spaceId || !accessToken) {
 
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Contentful starter",
+    title: "Eat The Fat",
   },
   pathPrefix: "/gatsby-contentful-starter",
   plugins: [
@@ -48,5 +48,6 @@ module.exports = {
       resolve: "gatsby-source-contentful",
       options: contentfulConfig,
     },
+    'gatsby-plugin-postcss',
   ],
 };

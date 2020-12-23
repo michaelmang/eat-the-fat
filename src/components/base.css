@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
 @font-face {
   font-family: "Avenir";
   font-weight: 400;
@@ -11,7 +13,7 @@ body {
   font-size: 1em;
   line-height: 1.65;
   color: #373F49;
-  background: #eee;
+  background: #fff;
   margin: 0;
 }
 
@@ -67,6 +69,10 @@ a {
   list-style: none;
 }
 
-  .list-inline li {
-    display: inline-block;
-  }
+.list-inline li {
+  display: inline-block;
+}
+
+.cursive {
+  font-family: 'Gelasio, serif';
+}
