@@ -3,9 +3,11 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import toUpper from 'lodash/toUpper'
 import { Helmet } from 'react-helmet'
-import Layout from '../components/layout'
-import Navigation from '../components/navigation'
+
 import ArticlePreview from '../components/article-preview'
+import Layout from '../components/layout'
+import Logo from '../components/logo'
+import Navigation from '../components/navigation'
 
 function removeDuplicates(list) {
   return [...new Set(list)];
@@ -25,10 +27,7 @@ class RootIndex extends React.Component {
       <Layout location={this.props.location}>
         <Helmet title={siteTitle} />
         <Navigation className="text-white" />
-        <div className="cursive flex flex-col items-center bg-white p-4 px-6 justify-center text-5xl font-light">
-          <img className="h-20 w-40 my-2" src="https://images.ctfassets.net/9hjducs3pll2/21Gg5ZTu4waptaCY6jEiMq/77ca24ccd531978bff341e30d0520775/eat-the-fat.png" />
-          Eat The Fat
-        </div>
+        <Logo />
         <div className="bg-white flex px-10 flex-col items-center sm:flex-row sm:justify-between sm:items-start">
           <div className="flex flex-row w-full px-8 py-2 sm:flex-col sm:w-1/12 sm:mr-8">
             <div className="hidden text-sm font-bold uppercase sm:flex sm:mb-4">

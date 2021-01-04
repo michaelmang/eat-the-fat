@@ -3,9 +3,11 @@ import { graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import get from 'lodash/get'
 import Img from 'gatsby-image'
-import Layout from '../components/layout'
 
 import heroStyles from '../components/hero.module.css'
+import Layout from '../components/layout'
+import Logo from '../components/logo'
+import Navigation from '../components/navigation'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -16,6 +18,8 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location}>
         <div style={{ background: '#fff' }}>
           <Helmet title={`${post.title} | ${siteTitle}`} />
+          <Navigation className="text-white" />
+          <Logo />
           <div className={heroStyles.hero}>
             <Img
               className={heroStyles.heroImage}
