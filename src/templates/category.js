@@ -11,7 +11,7 @@ import Navigation from '../components/navigation'
 
 class BlogIndex extends React.Component {
   render() {
-    const category = get(this, 'props.pathContext.category');
+    const category = get(this, 'props.pageContext.category');
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const posts = get(this, 'props.data.allContentfulBlogPost.edges')
 
@@ -51,7 +51,7 @@ export const pageQuery = graphql`
           publishDate(formatString: "MMMM Do, YYYY")
           tags
           heroImage {
-            fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
+            fluid(maxWidth: 196, maxHeight: 400, resizingBehavior: SCALE) {
               ...GatsbyContentfulFluid_tracedSVG
             }
           }

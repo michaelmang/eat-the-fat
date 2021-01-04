@@ -45,9 +45,18 @@ class BlogPostTemplate extends React.Component {
               }}
             />
           </div>
-          {relatedPosts.length && (
+          <div className="wrapper">
+            <Disqus
+              config={{
+                url: this.props.location.href,
+                identifier: post.slug,
+                title: post.title,
+              }}
+            />
+          </div>
+          {!!relatedPosts.length && (
             <div className="wrapper">
-              <h2 className="section-headline">Related Articles</h2>
+              <h2 className="section-headline">You May Also Like</h2>
               <ul className="article-list">
                 {relatedPosts.map(({ node }) => {
                   return (
@@ -59,15 +68,6 @@ class BlogPostTemplate extends React.Component {
               </ul>
             </div>
           )}
-          <div className="wrapper">
-            <Disqus
-              config={{
-                url: this.props.location.href,
-                identifier: post.slug,
-                title: post.title,
-              }}
-            />
-          </div>
         </div>
       </Layout>
     );

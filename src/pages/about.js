@@ -18,22 +18,21 @@ class AboutIndex extends React.Component {
         <div className="bg-white">
           <Helmet title={`About | ${siteTitle}`} />
           <Navigation className="text-white" />
-          <div className="h-full flex flex-col justify-center">
+          <div className="h-full wrapper flex flex-col justify-center">
             <Logo />
-            <div className="wrapper flex flex-row flex-wrap">
-              <div className="my-2 px-2 w-1/2 overflow-hidden">
-                <div className="flex flex-col text-black">
-                  <div className="text-4xl font-black">
-                    Hi, I'm {author.name} 👋
-                  </div>
-                  <div className="mt-4 text-lg font-base" dangerouslySetInnerHTML={{ __html: author.shortBio.childMarkdownRemark.html }} />
+            <div className="wrapper flex flex-row flex-wrap justify-center">
+              <div className="flex flex-col text-black mx-8 my-2">
+                <div className="text-4xl font-black">
+                  Hi, I'm {author.name} 👋
                 </div>
+                <div className="mt-4 text-lg font-base" dangerouslySetInnerHTML={{ __html: author.shortBio.childMarkdownRemark.html }} />
               </div>
-              <div className="my-2 px-2 w-1/2 overflow-hidden">
+              <div className="flex flex-col mx-8 my-2">
                 <Img
                   alt={author.name}
-                  className="rounded shadow-xl"
+                  className="rounded-xl shadow-xl"
                   fluid={author.image.fluid}
+                  style={{ height: 250, width: 167 }}
                 />
               </div>
             </div>
@@ -51,7 +50,7 @@ export const pageQuery = graphql`
     contentfulPerson(name: {eq: "Kelly Mangialardi"}) {
       name
       image {
-        fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
+        fluid(maxWidth: 167, maxHeight: 250, resizingBehavior: SCALE) {
           ...GatsbyContentfulFluid_tracedSVG
         }
       }

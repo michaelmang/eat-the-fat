@@ -29,21 +29,21 @@ export default function RootIndex(props) {
       <Helmet title={siteTitle} />
       <Navigation className="text-white" />
       <Logo />
-      <div className="bg-white flex px-10 flex-col items-center sm:flex-row sm:justify-between sm:items-start">
+      <div className="bg-white flex wrapper flex-col items-center sm:flex-row sm:justify-between sm:items-start">
         <Categories data={categories} />
-        <div className="flex flex-col w-full sm:w-9/12 sm:mr-8">
+        <div className="flex flex-col w-full sm:w-7/12 sm:mr-8">
           {trendingArticles.map(({ node }) => {
             return <ArticlePreview key={node.name} article={node} className="mb-4 w-full" />
           })}
         </div>
-        <div className="flex flex-row flex-wrap justify-center sm:flex-col sm:w-2/12">
+        <div className="flex flex-row flex-wrap justify-center sm:flex-col sm:w-3/12">
           <div className="p-8 mt-4 mb-10 sm:p-4 sm:m-0 text-black sm:mb-4 w-full" style={{ backgroundColor: "#ffcb69" }}>
             <div className="mb-2 uppercase font-bold text-sm">
               Join the Newsletter
             </div>
             <input className="px-2 py-1 rounded text-sm w-full" placeholder="email address" type="text" />
           </div>
-          <ul className="article-list mb-4">
+          <ul className="article-list">
             {posts.slice(0, 5).map(({ node }) => {
               return (
                 <li key={node.name}>
