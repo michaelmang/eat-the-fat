@@ -1,17 +1,13 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import get from 'lodash/get'
-import toUpper from 'lodash/toUpper'
 import { Helmet } from 'react-helmet'
 
 import ArticlePreview from '../components/article-preview'
 import Layout from '../components/layout'
 import Logo from '../components/logo'
 import Navigation from '../components/navigation'
-
-function removeDuplicates(list) {
-  return [...new Set(list)];
-}
+import getCategories from '../selectors/getCategories'
 
 class RootIndex extends React.Component {
   render() {
@@ -19,7 +15,7 @@ class RootIndex extends React.Component {
     const posts = get(this, 'props.data.allContentfulBlogPost.edges')
     const nodes = get(this, 'props.data.allContentfulBlogPost.nodes')
 
-    const tags = removeDuplicates(nodes.flatMap(({ tags }) => tags)).map(tag => toUpper(tag));
+    const categories = getCategories(nodes);
 
     const trendingArticles = posts.filter(({ node }) => node.tags.includes('featured'));
 
@@ -34,14 +30,16 @@ class RootIndex extends React.Component {
               categories
             </div>
             <div className="flex flex-row w-full justify-between sm:flex-col">
-              {tags.map(tag => (
-                <div key={tag} className="cursor-pointer mb-2 mr-2 text-sm hover:underline">{tag}</div>
+              {categories.map(category => (
+                <Link to={`/blog/categories/${category.toLowerCase()}/`}>
+                  <div key={category} className="cursor-pointer mb-2 mr-2 text-sm hover:underline">{category}</div>
+                </Link>
               ))}
             </div>
           </div>
           <div className="flex flex-col w-full sm:w-9/12 sm:mr-8">
             {trendingArticles.map(({ node }) => {
-              return <ArticlePreview article={node} className="mb-4 w-full" />
+              return <ArticlePreview key={node.name} article={node} className="mb-4 w-full" />
             })}
           </div>
           <div className="flex flex-row flex-wrap justify-center sm:flex-col sm:w-2/12">

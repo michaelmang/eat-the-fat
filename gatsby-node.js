@@ -1,11 +1,14 @@
 const Promise = require('bluebird')
 const path = require('path')
 
+const getCategories = require('./src/selectors/getCategories');
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js')
+    const categoryTemplate = path.resolve('./src/templates/category.js')
     resolve(
       graphql(
         `
@@ -16,6 +19,9 @@ exports.createPages = ({ graphql, actions }) => {
                   title
                   slug
                 }
+              }
+              nodes {
+                tags
               }
             }
           }
@@ -33,6 +39,18 @@ exports.createPages = ({ graphql, actions }) => {
             component: blogPost,
             context: {
               slug: post.node.slug,
+            },
+          })
+        })
+        
+        const { nodes } = result.data.allContentfulBlogPost
+        const categories = getCategories(nodes)
+        categories.forEach(category => {
+          createPage({
+            path: `/blog/categories/${category.toLowerCase()}/`,
+            component: categoryTemplate,
+            context: {
+              category: category.toLowerCase(),
             },
           })
         })
