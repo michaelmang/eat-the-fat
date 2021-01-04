@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { Disqus } from 'gatsby-plugin-disqus'
 import { Helmet } from 'react-helmet'
 import get from 'lodash/get'
 import Img from 'gatsby-image'
@@ -44,7 +45,6 @@ class BlogPostTemplate extends React.Component {
               }}
             />
           </div>
-
           <div className="wrapper">
             <h2 className="section-headline">Related Articles</h2>
             <ul className="article-list">
@@ -57,6 +57,15 @@ class BlogPostTemplate extends React.Component {
               })}
             </ul>
           </div>
+          <div className="wrapper">
+            <Disqus
+              config={{
+                url: this.props.location.href,
+                identifier: post.slug,
+                title: post.title,
+              }}
+            />
+          </div>
         </div>
       </Layout>
     )
@@ -68,6 +77,7 @@ export default BlogPostTemplate
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!, $category: [String!]) {
     contentfulBlogPost(slug: { eq: $slug }) {
+      slug
       title
       publishDate(formatString: "MMMM Do, YYYY")
       heroImage {

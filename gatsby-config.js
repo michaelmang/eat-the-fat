@@ -49,5 +49,11 @@ module.exports = {
       options: contentfulConfig,
     },
     'gatsby-plugin-postcss',
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+          shortname: `eatthefat`
+      }
+    },
   ],
 };
