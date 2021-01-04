@@ -7,18 +7,18 @@ import Layout from '../components/layout'
 import Navigation from '../components/navigation'
 import ArticlePreview from '../components/article-preview'
 
+function removeDuplicates(list) {
+  return [...new Set(list)];
+}
+
 class RootIndex extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const posts = get(this, 'props.data.allContentfulBlogPost.edges')
     const nodes = get(this, 'props.data.allContentfulBlogPost.nodes')
-    const [author] = get(this, 'props.data.allContentfulPerson.edges')
 
-    const tags = [...new Set(nodes.flatMap(({ tags }) => tags))].map(tag => (
-      toUpper(tag)
-    ));
+    const tags = removeDuplicates(nodes.flatMap(({ tags }) => tags)).map(tag => toUpper(tag));
 
-    const featuredArticle = posts.find(({ node }) => node.tags.includes('featured'));
     const trendingArticles = posts.filter(({ node }) => node.tags.includes('featured'));
 
     return (
@@ -29,26 +29,28 @@ class RootIndex extends React.Component {
           <img className="h-20 w-40 my-2" src="https://images.ctfassets.net/9hjducs3pll2/21Gg5ZTu4waptaCY6jEiMq/77ca24ccd531978bff341e30d0520775/eat-the-fat.png" />
           Eat The Fat
         </div>
-        <div className="bg-white flex justify-between px-10">
-          <div className="flex flex-col w-1/12 mr-8">
-            <div className="mb-4 text-sm font-bold uppercase">
+        <div className="bg-white flex px-10 flex-col items-center sm:flex-row sm:justify-between sm:items-start">
+          <div className="flex flex-row w-full px-8 py-2 sm:flex-col sm:w-1/12 sm:mr-8">
+            <div className="hidden text-sm font-bold uppercase sm:flex sm:mb-4">
               categories
             </div>
-            {tags.map(tag => (
-              <div key={tag} className="mb-2 text-sm">{tag}</div>
-            ))}
+            <div className="flex flex-row w-full justify-between sm:flex-col">
+              {tags.map(tag => (
+                <div key={tag} className="cursor-pointer mb-2 mr-2 text-sm hover:underline">{tag}</div>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-col w-9/12 mr-8">
+          <div className="flex flex-col w-full sm:w-9/12 sm:mr-8">
             {trendingArticles.map(({ node }) => {
               return <ArticlePreview article={node} className="mb-4 w-full" />
             })}
           </div>
-          <div className="flex flex-col w-2/12">
-            <div className="p-4 text-black mb-4" style={{ backgroundColor: "#ffcb69" }}>
+          <div className="flex flex-row flex-wrap justify-center sm:flex-col sm:w-2/12">
+            <div className="p-8 mt-4 mb-10 sm:p-4 sm:m-0 text-black sm:mb-4 w-full" style={{ backgroundColor: "#ffcb69" }}>
               <div className="mb-2 uppercase font-bold text-sm">
                 Join the Newsletter
               </div>
-              <input className="px-2 py-1 rounded text-sm" placeholder="email address" type="text" />
+              <input className="px-2 py-1 rounded text-sm w-full" placeholder="email address" type="text" />
             </div>
             {posts.slice(0, 5).map(({ node }) => {
               return <ArticlePreview article={node} className="mb-4 w-full" withDescription={false} />

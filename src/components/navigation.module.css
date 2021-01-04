@@ -13,6 +13,10 @@
   margin: 0 1em;
 }
 
+.navigationItem:hover {
+  text-decoration: underline;
+}
+
 .navigationItem a {
   color: currentColor;
 }
