@@ -4,6 +4,7 @@ import get from 'lodash/get'
 import { Helmet } from 'react-helmet'
 
 import ArticlePreview from '../components/article-preview'
+import Categories from '../components/categories'
 import Layout from '../components/layout'
 import Logo from '../components/logo'
 import Navigation from '../components/navigation'
@@ -25,18 +26,7 @@ class RootIndex extends React.Component {
         <Navigation className="text-white" />
         <Logo />
         <div className="bg-white flex px-10 flex-col items-center sm:flex-row sm:justify-between sm:items-start">
-          <div className="flex flex-row w-full px-8 py-2 sm:flex-col sm:w-1/12 sm:mr-8">
-            <div className="hidden text-sm font-bold uppercase sm:flex sm:mb-4">
-              categories
-            </div>
-            <div className="flex flex-row w-full justify-between sm:flex-col">
-              {categories.map(category => (
-                <Link to={`/blog/categories/${category.toLowerCase()}/`}>
-                  <div key={category} className="cursor-pointer mb-2 mr-2 text-sm hover:underline">{category}</div>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <Categories data={categories} />
           <div className="flex flex-col w-full sm:w-9/12 sm:mr-8">
             {trendingArticles.map(({ node }) => {
               return <ArticlePreview key={node.name} article={node} className="mb-4 w-full" />

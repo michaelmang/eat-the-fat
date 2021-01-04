@@ -4,14 +4,18 @@ import get from 'lodash/get'
 import { Helmet } from 'react-helmet'
 
 import ArticlePreview from '../components/article-preview'
+import Categories from '../components/categories'
 import Layout from '../components/layout'
 import Logo from '../components/logo'
 import Navigation from '../components/navigation'
+import getCategories from '../selectors/getCategories'
 
 class BlogIndex extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const posts = get(this, 'props.data.allContentfulBlogPost.edges')
+    const nodes = get(this, 'props.data.allContentfulBlogPost.nodes')
+    const categories = getCategories(nodes);
 
     return (
       <Layout location={this.props.location}>
@@ -19,17 +23,20 @@ class BlogIndex extends React.Component {
           <Helmet title={siteTitle} />
           <Navigation className="text-white" />
           <Logo />
-          <div className="wrapper">
-            <h2 className="section-headline">Blog</h2>
-            <ul className="article-list">
-              {posts.map(({ node }) => {
-                return (
-                  <li key={node.slug}>
-                    <ArticlePreview article={node} />
-                  </li>
-                )
-              })}
-            </ul>
+          <div className="flex flex-row">
+            <Categories data={categories} />
+            <div className="wrapper pt-0 px-4">
+              <h2 className="section-headline">Blog</h2>
+              <ul className="article-list">
+                {posts.map(({ node }) => {
+                  return (
+                    <li key={node.slug}>
+                      <ArticlePreview article={node} />
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </Layout>
@@ -59,6 +66,9 @@ export const pageQuery = graphql`
             }
           }
         }
+      }
+      nodes {
+        tags
       }
     }
   }
