@@ -3,7 +3,12 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   important: true,
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'accent': '#9b9b7a',
+        'cta': '#FFCB69',
+      }
+    },
   },
   variants: {
     extend: {},
