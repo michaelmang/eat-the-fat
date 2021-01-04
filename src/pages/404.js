@@ -14,7 +14,7 @@ class Index404 extends React.Component {
     return (
       <Layout location={this.props.location}>
         <div className="bg-white">
-          <Helmet title={siteTitle} />
+          <Helmet title={`Whoops! | ${siteTitle}`} />
           <Navigation className="text-white" />
           <div className="h-full flex flex-col justify-center">
             <Logo />

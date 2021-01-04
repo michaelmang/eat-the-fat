@@ -18,7 +18,7 @@ class BlogIndex extends React.Component {
     return (
       <Layout location={this.props.location}>
         <div className="bg-white">
-          <Helmet title={siteTitle} />
+          <Helmet title={`${category} | ${siteTitle}`} />
           <Navigation className="text-white" />
           <Logo />
           <div className="wrapper">

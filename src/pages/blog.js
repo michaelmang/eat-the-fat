@@ -20,7 +20,7 @@ class BlogIndex extends React.Component {
     return (
       <Layout location={this.props.location}>
         <div className="bg-white">
-          <Helmet title={siteTitle} />
+          <Helmet title={`Blog | ${siteTitle}`} />
           <Navigation className="text-white" />
           <Logo />
           <div className="flex flex-col sm:flex-row">
