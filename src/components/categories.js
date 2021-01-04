@@ -1,9 +1,9 @@
 import { Link } from "gatsby"
 import React from "react"
 
-export default function Categories({ data: categories = [] }) {
+export default function Categories({ className, data: categories = [] }) {
   return (
-    <div className="flex flex-row w-full px-8 py-2 sm:flex-col sm:w-1/12 sm:mr-8">
+    <div className={`flex flex-row w-full px-8 py-2 sm:flex-col sm:w-1/12 sm:mr-8 ${className}`}>
       <div className="hidden text-sm font-bold uppercase sm:flex sm:mb-4">
         categories
       </div>

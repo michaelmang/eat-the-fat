@@ -23,8 +23,8 @@ class BlogIndex extends React.Component {
           <Helmet title={siteTitle} />
           <Navigation className="text-white" />
           <Logo />
-          <div className="flex flex-row">
-            <Categories data={categories} />
+          <div className="flex flex-col sm:flex-row">
+            <Categories className="px-16" data={categories} />
             <div className="wrapper pt-0 px-4">
               <h2 className="section-headline">Blog</h2>
               <ul className="article-list">
