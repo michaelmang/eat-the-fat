@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 import get from 'lodash/get'
 import Img from 'gatsby-image'
 
+import ArticlePreview from '../components/article-preview'
 import heroStyles from '../components/hero.module.css'
 import Layout from '../components/layout'
 import Logo from '../components/logo'
@@ -13,6 +14,7 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = get(this.props, 'data.contentfulBlogPost')
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
+    const relatedPosts = get(this, 'props.data.allContentfulBlogPost.edges')
 
     return (
       <Layout location={this.props.location}>
@@ -42,6 +44,19 @@ class BlogPostTemplate extends React.Component {
               }}
             />
           </div>
+
+          <div className="wrapper">
+            <h2 className="section-headline">Related Articles</h2>
+            <ul className="article-list">
+              {relatedPosts.map(({ node }) => {
+                return (
+                  <li key={node.slug}>
+                    <ArticlePreview article={node} />
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
       </Layout>
     )
@@ -51,7 +66,7 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String!, $category: [String!]) {
     contentfulBlogPost(slug: { eq: $slug }) {
       title
       publishDate(formatString: "MMMM Do, YYYY")
@@ -63,6 +78,26 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
+        }
+      }
+    }
+    allContentfulBlogPost(sort: { fields: [publishDate], order: DESC}, filter: {tags: {in: $category} }) {
+      edges {
+        node {
+          title
+          slug
+          publishDate(formatString: "MMMM Do, YYYY")
+          tags
+          heroImage {
+            fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
+              ...GatsbyContentfulFluid_tracedSVG
+            }
+          }
+          description {
+            childMarkdownRemark {
+              html
+            }
+          }
         }
       }
     }
